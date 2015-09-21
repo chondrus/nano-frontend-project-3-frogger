@@ -9,6 +9,14 @@ var startingCol = 2;
 var baseWidth = 101;
 var baseHeight = 85;
 
+var playerSprites =  [
+    'images/char-boy.png',
+    'images/char-cat-girl.png',
+    'images/char-horn-girl.png',
+    'images/char-pink-girl.png',
+    'images/char-princess-girl.png',
+];
+
 // Returns a random integer between min (included) and max (excluded)
 // Using Math.round() will give you a non-uniform distribution!
 // source:
@@ -68,7 +76,7 @@ Enemy.prototype.update = function(dt) {
         if (this.x < playerX + playerWidth &&
            this.x + bugWidth > playerX) {
             console.log("BLAM");
-            player.reset();
+            player.blam();
         }
     }
 };
@@ -83,8 +91,9 @@ Enemy.prototype.render = function() {
 // namely the image and the col and row location
 var Player = function() {
 
-    // currently, only one image available
-    this.sprite = 'images/char-princess-girl.png';
+    // initial sprite & index
+    this.spriteIndex = getRandomInt(0, playerSprites.length);
+    this.sprite = playerSprites[this.spriteIndex];
 
     // player can only move in columns and rows, so that
     // is what is stored (as opposed to x and y)
@@ -135,6 +144,23 @@ Player.prototype.handleInput = function(input) {
             break;
     }
 };
+
+// picks a different chacater to be on collision
+Player.prototype.blam = function() {
+
+    // new index that is NOT the old index
+    var newIndex = this.spriteIndex;
+    while (newIndex === this.spriteIndex) {
+        newIndex = getRandomInt(0, playerSprites.length);
+    }
+
+    this.spriteIndex = newIndex;
+    this.sprite = playerSprites[this.spriteIndex];
+
+    // and reset
+    this.reset();
+};
+
 
 // returns the player to the beginning, in either win or collision
 Player.prototype.reset = function() {
