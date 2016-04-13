@@ -4,10 +4,10 @@
  */
 
 // there is probably a better way to do globals
-var startingRow = 5;
-var startingCol = 2;
-var baseWidth = 101;
-var baseHeight = 85;
+var STARTING_ROW = 5;
+var STARTING_COL = 2;
+var BASE_WIDTH = 101;
+var BASE_HEIGHT = 85;
 
 var playerSprites =  [
     'images/char-boy.png',
@@ -41,8 +41,8 @@ var Enemy = function() {
     // The bug's row (y) never changes, so it
     // is just stored for easier collision detection.
     this.row = getRandomInt(1, 4);
-    this.x = (getRandomInt(-2, 5)) * baseWidth;
-    this.y = (this.row * baseHeight) - 25;
+    this.x = (getRandomInt(-2, 5)) * BASE_WIDTH;
+    this.y = (this.row * BASE_HEIGHT) - 25;
     this.speed = getRandomInt(40, 400);
 };
 
@@ -57,8 +57,8 @@ Enemy.prototype.update = function(dt) {
     // wrap once it's well past the screen to somewhere
     // before the screen - the randomness here prevents
     // a player from predicting when a bug will reappear
-    if (this.x > 5 * baseWidth) {
-        this.x = getRandomInt(-3 * baseWidth, -1 * baseWidth);
+    if (this.x > 5 * BASE_WIDTH) {
+        this.x = getRandomInt(-3 * BASE_WIDTH, -1 * BASE_WIDTH);
     }
 
     // collision detection
@@ -69,7 +69,7 @@ Enemy.prototype.update = function(dt) {
         // column collision detected modeled off of
         // https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
         // variables are only to enhance readability
-        var playerX = player.col * baseWidth;
+        var playerX = player.col * BASE_WIDTH;
         var playerWidth = 90;
         var bugWidth = 85;
 
@@ -97,8 +97,8 @@ var Player = function() {
 
     // player can only move in columns and rows, so that
     // is what is stored (as opposed to x and y)
-    this.col = startingCol;
-    this.row = startingRow;
+    this.col = STARTING_COL;
+    this.row = STARTING_ROW;
 };
 
 // Player update: adds the new row and the col of the player
@@ -164,13 +164,13 @@ Player.prototype.blam = function() {
 
 // returns the player to the beginning, in either win or collision
 Player.prototype.reset = function() {
-    this.col = startingCol;
-    this.row = startingRow;
+    this.col = STARTING_COL;
+    this.row = STARTING_ROW;
 };
 
 // displays the player character
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.col * baseWidth, this.row * 83);
+    ctx.drawImage(Resources.get(this.sprite), this.col * BASE_WIDTH, this.row * 83);
 };
 
 
