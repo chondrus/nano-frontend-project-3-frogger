@@ -8,6 +8,7 @@ var STARTING_ROW = 5;
 var STARTING_COL = 2;
 var BASE_WIDTH = 101;
 var BASE_HEIGHT = 85;
+var NUM_ENEMIES = 5;
 
 var playerSprites =  [
     'images/char-boy.png',
@@ -180,13 +181,10 @@ Player.prototype.render = function() {
 
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [
-    new Enemy(),
-    new Enemy(),
-    new Enemy(),
-    new Enemy(),
-    new Enemy(),
-];
+var allEnemies = [];
+for (var i = 0; i < NUM_ENEMIES; i++) {
+    allEnemies.push(new Enemy());
+}
 var player = new Player();
 
 
