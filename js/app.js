@@ -120,7 +120,7 @@ Player.prototype.update = function(col, row) {
         // row 0 - victory!
         if (newRow === 0) {
             console.log("Victory!");
-            player.reset();
+            this.reset();
         }
     }
 };
